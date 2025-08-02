@@ -1,53 +1,36 @@
-function displayTemperature(response) {
-    let temperatureElement = document.querySelector("#current-temperature");
-    console.log(response);
-    temperatureElement.innerHTML = Math.round(response.data.temperature.current);
+function updateWeather(response) {
+    document.querySelector("#current-city").textContent = response.data.city;
+    document.querySelector("#current-temperature").textContent = Math.round(response.data.temperature.current);
+    document.querySelector("#current-description").textContent = response.data.condition.description;
+    document.querySelector("#humidity").textContent = `${response.data.temperature.humidity}%`;
+    document.querySelector("#wind").textContent = `${response.data.wind.speed} km/h`;
+  
+    const date = new Date(response.data.time * 1000);
+    document.querySelector("#current-date").textContent = date.toLocaleDateString("en-US", {
+      weekday: "long",
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+  
+    const icon = response.data.condition.icon_url;
+    document.querySelector("#weather-icon").innerHTML = `<img src="${icon}" alt="weather icon" width="40" />`;
   }
   
-  function search(event) {
-    event.preventDefault();
-    let searchInputElement = document.querySelector("#search-input");
-    let city = searchInputElement.value;
-    let apiKey = "00bb106cd815a9c9783ff27o7ta42025";
-    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
-    let cityElement = document.querySelector("#current-city");
-    cityElement.innerHTML = searchInputElement.value;
-  
-    axios.get(apiUrl).then(displayTemperature);
+  function searchCity(city) {
+    const apiKey = "00bb106cd815a9c9783ff27o7ta42025";
+    const apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
+    axios.get(apiUrl).then(updateWeather);
   }
   
-  function formatDate(date) {
-    let minutes = date.getMinutes();
-    let hours = date.getHours();
-    let day = date.getDay();
+  document.addEventListener("DOMContentLoaded", () => {
+    searchCity("Paris");
   
-    if (minutes < 10) {
-      minutes = `0${minutes}`;
-    }
-  
-    if (hours < 10) {
-      hours = `0${hours}`;
-    }
-  
-    let days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-  
-    let formattedDay = days[day];
-    return `${formattedDay} ${hours}:${minutes}`;
-  }
-  
-  let searchForm = document.querySelector("#search-form");
-  searchForm.addEventListener("submit", search);
-  
-  let currentDateELement = document.querySelector("#current-date");
-  let currentDate = new Date();
-  
-  currentDateELement.innerHTML = formatDate(currentDate);
+    document.querySelector("#search-form").addEventListener("submit", function (event) {
+      event.preventDefault();
+      const city = document.querySelector("#search-input").value.trim();
+      if (city) {
+        searchCity(city);
+      }
+    });
+  });
   
