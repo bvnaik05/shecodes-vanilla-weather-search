@@ -10,6 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="src/index.css" />
+    <script src="src/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
     <title>Meteo App</title>
 </head>
 
@@ -25,16 +27,18 @@
         <main>
             <div class="weather-app-data">
                 <div>
-                    <h1 class="weather-app-city" id="city">Paris</h1>
+                    <h1 class="weather-app-city" id="city"> Paris</h1>
                     <p class="weather-app-details">
-                        Tuesday 14:49, scattered clouds
+                        <span id="time">14:39</span>,
+                        <span id="description"> partly cloudy</span>
                         <br />
-                        Humidity: <strong>66%</strong>, Wind: <strong>3.13km/h</strong>
+                        Humidity: <strong id="humidity">66%</strong>, Wind:
+                        <strong id="wind-speed">3.3km/hr</strong>
                     </p>
                 </div>
                 <div class="weather-app-temperature-container">
-                    <div class="weather-app-icon">🌤️</div>
-                    <div class="weather-app-temperature">12</div>
+                    <div id="icon"></div>
+                    <div class="weather-app-temperature" id="temperature">🌤️12</div>
                     <div class="weatehr-app-unit">°C</div>
                 </div>
             </div>
@@ -43,14 +47,12 @@
         <footer>
             This project was coded by
             <a href="https://github.com/bvnaik05" target="_blank">Bhargavi Naik</a> , code hosted on
-            <a href="https://github.com/bvnaik05/shecodes-vanilla-weather-search" target="_blank">GitHub</a> and website deployed on
+            <a href="https://github.com/bvnaik05/shecodes-vanilla-weather-search" target="_blank">GitHub</a> and website
+            deployed on
             <a href="https://vanillaweathershecodes.netlify.app/" target="_blank"> Netlify</a>
         </footer>
     </div>
-    <script src="src/index.js"></script>
+
 </body>
 
 </html>
-
-
-
